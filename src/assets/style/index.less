@@ -1,0 +1,83 @@
+@import "./reset";
+@import "./common";
+.arco-table {
+  .arco-table-cell {
+    padding: 10px 16px;
+  }
+  .arco-table-th {
+    .arco-table-cell {
+      padding: 13px 16px;
+    }
+  }
+}
+.main-content {
+  background-color: "var(--color-fill-2)";
+  .sub-title {
+    padding: 0 10px;
+    font-size: 16px;
+    color: #24324c;
+    position: relative;
+    line-height: 20px;
+    font-weight: 600;
+    margin: 0 0 15px 0;
+    &:before {
+      content: " ";
+      height: 16px;
+      width: 4px;
+      background: #276bdd;
+      position: absolute;
+      left: 0px;
+      top: 1px;
+    }
+  }
+  .pagination {
+    margin-top: 12px;
+    display: flex;
+    justify-content: end;
+  }
+
+  .search-con {
+    padding: 20px;
+    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+  }
+
+  .table-con {
+    .arco-table-cell {
+      .arco-btn-text {
+        padding: 2px 5px;
+      }
+    }
+  }
+}
+.page-title,
+.page-drawer,
+.page-dialog {
+  .arco-select,
+  .arco-picker,
+  .arco-input-wrapper:not(.arco-input-error),
+  .arco-textarea-wrapper:not(.arco-textarea-error) {
+    background-color: #fff;
+  }
+  .arco-input-wrapper:not(.arco-input-focus),
+  .arco-textarea-wrapper:not(.arco-textarea-focus) {
+    border-color: #dbdbdb;
+  }
+  .arco-select:not(.arco-select-view-focus, .arco-select-view-opened),
+  .arco-picker {
+    border-color: #dbdbdb;
+  }
+}
+
+.page-title {
+  .search-optoion-box {
+    .arco-form {
+      padding-top: 10px;
+    }
+    .arco-form-item {
+      margin-bottom: 10px;
+    }
+  }
+}
+.arco-notification-list-top-right {
+  top: 80px !important;
+}
