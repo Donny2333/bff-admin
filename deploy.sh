@@ -2,11 +2,11 @@
 
 SRC=./dist
 # 系统用户
-USER=bootapp
+USER=root
 # 目标主机
-HOST=10.32.226.7
+HOST=10.32.226.26
 # 目标目录
-DEST=/export/www/dse
+DEST=/opt/soft/bff-admin/dist
 
 function deploy() {
     echo 'Build files...';
