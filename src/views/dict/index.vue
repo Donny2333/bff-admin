@@ -142,6 +142,12 @@ const columns = ref([
     tooltip: true,
   },
   {
+    title: "修改人",
+    dataIndex: "updated_by",
+    ellipsis: true,
+    tooltip: true,
+  },
+  {
     title: "修改日期",
     dataIndex: "updated_at",
     ellipsis: true,

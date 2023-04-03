@@ -15,7 +15,7 @@
         </a-row>
         <a-row>
           <a-form-item field="quota" label="所属空间">
-            <span class="content">{{ form.namespace ?? '--' }}</span>
+            <span class="content">{{ form.namespace ?? "--" }}</span>
           </a-form-item>
         </a-row>
         <a-row>
@@ -26,6 +26,21 @@
         <a-row>
           <a-form-item field="comment" label="字典排序">
             <span class="content">{{ form.sort }}</span>
+          </a-form-item>
+        </a-row>
+        <a-row>
+          <a-form-item field="modifiedUserName" label="创建人">
+            <span class="content">{{ form.created_by ?? "--" }}</span>
+          </a-form-item>
+        </a-row>
+        <a-row>
+          <a-form-item field="modifiedUserName" label="创建日期">
+            <span class="content">{{ form.created_at }}</span>
+          </a-form-item>
+        </a-row>
+        <a-row>
+          <a-form-item field="modifiedUserName" label="修改人">
+            <span class="content">{{ form.updated_by ?? "--" }}</span>
           </a-form-item>
         </a-row>
         <a-row>
