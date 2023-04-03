@@ -79,7 +79,6 @@
         </a-button>
         <template #content>
           <a-doption class="doption">{{ roleName }}</a-doption>
-          <a-doption @click="toLoginLog" class="doption">登录日志</a-doption>
           <a-doption @click="handleLogout" class="doption">退出登录</a-doption>
         </template>
       </a-dropdown>
