@@ -31,11 +31,7 @@
         click-outside-to-close
         :unmount-on-close="false"
       >
-        <a-badge
-          :offset="[2, -2]"
-          :count="messageCount"
-          dot
-        >
+        <a-badge :offset="[2, -2]" :count="messageCount" dot>
           <div class="notification" @click="getMessageList"></div>
         </a-badge>
         <template #content>
@@ -98,16 +94,15 @@ import { logout } from "@/assets/api/api";
 import { IconDown } from "@arco-design/web-vue/es/icon";
 // import { EventSourcePolyfill } from "event-source-polyfill";
 import { useRoute, useRouter } from "vue-router";
-import { Notification,Message, Button } from "@arco-design/web-vue";
+import { Notification, Message, Button } from "@arco-design/web-vue";
 import {
   createConnnectionUrl,
   closeConnnectionUrl,
   readMessage,
   sourceList,
   messageList,
-  readMessageAll
+  readMessageAll,
 } from "@/assets/api/message.js";
-
 
 let source = null;
 const route = useRoute();
@@ -168,14 +163,14 @@ const currentRoutePath = computed(() => {
 const toMessage = () => {
   show.value = false;
   router.push("/message");
-}
+};
 
 // 消息来源
 function getSourceList() {
   sourceList().then(({ code, data, msg } = {}) => {
-    if (code === 200 && data) return sourceMap.value = data;
-    Message.error(msg || '查询消息类型异常')
-  })
+    if (code === 200 && data) return (sourceMap.value = data);
+    Message.error(msg || "查询消息类型异常");
+  });
 }
 // 消息列表
 function getMessageList() {
@@ -183,19 +178,22 @@ function getMessageList() {
     status: -1,
     pageSize: 5,
     pageNum: 1,
-  }
+  };
   messageList({}, params).then(({ code, msg, data } = {}) => {
     if (code === 200 && data) {
       const list = data.list;
-      list && list.forEach(item => {
-        let messageSrcItem = sourceMap.value.find(i => i.id === item.messageSrcId)
-        item.messageSrcName = messageSrcItem?.srcName;
-      });
+      list &&
+        list.forEach((item) => {
+          let messageSrcItem = sourceMap.value.find(
+            (i) => i.id === item.messageSrcId
+          );
+          item.messageSrcName = messageSrcItem?.srcName;
+        });
       tableData.value = list || [];
     } else {
-      Message.error(msg || '查询列表异常');
+      Message.error(msg || "查询列表异常");
     }
-  })
+  });
 }
 function readAll() {
   readMessageAll().then(({ code, msg } = {}) => {
@@ -203,14 +201,14 @@ function readAll() {
       getMessageList();
       show.value = false;
     } else {
-      Message.error(msg || '操作失败');
+      Message.error(msg || "操作失败");
     }
-  })
+  });
 }
-getSourceList();
+// getSourceList();
 const toLoginLog = () => {
-    router.push("/loginLog");
-}
+  router.push("/loginLog");
+};
 
 const handleLogout = () => {
   let data = {
@@ -323,13 +321,13 @@ onMounted(() => {
   if (token.value) {
     const tokenArray = token.value.split(".");
     console.log("tokenArray", tokenArray[tokenArray.length - 1]);
-    connectSSE(tokenArray[tokenArray.length - 1]);
+    // connectSSE(tokenArray[tokenArray.length - 1]);
   }
 });
 
 // 监听窗口关闭事件，主动去关闭sse连接，如果服务端设置永不过期，浏览器关闭后手动清理服务端数据
 window.onbeforeunload = function () {
-  closeSse();
+  // closeSse();
 };
 
 // 关闭Sse连接
