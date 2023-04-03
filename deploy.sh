@@ -4,7 +4,7 @@ SRC=./dist
 # 系统用户
 USER=root
 # 目标主机
-HOST=10.32.226.26
+HOST=10.32.226.28
 # 目标目录
 DEST=/opt/soft/bff-admin/dist
 
