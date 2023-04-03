@@ -32,6 +32,7 @@ watch(
   height: 100%;
   .arco-layout-content {
     height: 100%;
+    overflow: hidden;
   }
 }
 </style>
