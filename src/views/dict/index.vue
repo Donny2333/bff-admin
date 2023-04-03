@@ -171,12 +171,30 @@ const onReset = () => {
 };
 
 const handleSelect = (keys, { node }) => {
-  data.value = node.children.map((obj) => {
-    return {
-      ...obj,
-      children: undefined,
-    };
-  });
+  if (node?.children.length) {
+    data.value =
+      node?.children.map((obj) => {
+        return {
+          ...obj,
+          children: undefined,
+        };
+      }) ?? [];
+  } else if (node?.children == 0) {
+    data.value = [
+      {
+        ...node,
+        children: undefined,
+      },
+    ];
+  } else {
+    console.log(node);
+    data.value = treeData.value[0].children.map((obj) => {
+      return {
+        ...obj,
+        children: undefined,
+      };
+    });
+  }
 };
 
 const handleAdd = (node) => {
@@ -232,31 +250,37 @@ const onDialogSubmit = () => {
   getData();
 };
 
-const getData = () => {
+const getData = async () => {
   const payload = {
     code: form.value.code,
     year: form.value.year,
   };
   loading.value = true;
-  list(payload, pagination.current, pagination.pageSize)
-    .then((res) => {
-      loading.value = false;
-      treeData.value = [
-        {
-          id: 0,
-          label: "[根节点]",
-          children: res.data ?? [],
-        },
-      ];
-    })
-    .catch((error) => {
-      loading.value = false;
-    });
+  const res = await list(payload, pagination.current, pagination.pageSize);
+
+  loading.value = false;
+  treeData.value = [
+    {
+      id: 0,
+      label: "[根节点]",
+      children: res.data ?? [],
+    },
+  ];
+  return res;
 };
 
-onMounted(() => {
+onMounted(async () => {
   pagination.current = 1;
-  getData();
+  const res = await getData();
+  console.log(res);
+  if (res.code == 200) {
+    data.value = res.data.map((obj) => {
+      return {
+        ...obj,
+        children: undefined,
+      };
+    });
+  }
 });
 </script>
 
