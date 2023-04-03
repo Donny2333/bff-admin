@@ -27,7 +27,7 @@ watch(
 );
 </script>
 
-<style lang='less'>
+<style lang="less">
 .arco-layout {
   height: 100%;
   .arco-layout-content {

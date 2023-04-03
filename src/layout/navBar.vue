@@ -94,14 +94,6 @@ import { IconDown } from "@arco-design/web-vue/es/icon";
 // import { EventSourcePolyfill } from "event-source-polyfill";
 import { useRoute, useRouter } from "vue-router";
 import { Notification, Message, Button } from "@arco-design/web-vue";
-import {
-  createConnnectionUrl,
-  closeConnnectionUrl,
-  readMessage,
-  sourceList,
-  messageList,
-  readMessageAll,
-} from "@/assets/api/message.js";
 
 let source = null;
 const route = useRoute();
