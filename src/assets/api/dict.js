@@ -16,3 +16,18 @@ export function add(data) {
     data,
   });
 }
+
+export function update(data, id) {
+  return request({
+    url: BFFApi + `/dict/${id}`,
+    method: "put",
+    data,
+  });
+}
+
+export function remove(id) {
+  return request({
+    url: BFFApi + `/dict/${id}`,
+    method: "delete",
+  });
+}

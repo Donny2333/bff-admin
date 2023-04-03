@@ -3,13 +3,25 @@
     <div class="tree-wrapper">
       <a-input-search style="margin-bottom: 8px" v-model="searchKey" />
       <a-tree
+        v-if="!loading"
         :blockNode="true"
         :data="treeData"
         :field-names="filedProps"
         showLine
+        @select="handleSelect"
       >
         <template #extra="nodeData">
-          <IconPlus
+          <IconPlusCircle
+            :style="{
+              position: 'absolute',
+              right: '52px',
+              fontSize: '12px',
+              top: '10px',
+              color: '#3370ff',
+            }"
+            @click="() => handleAdd(nodeData)"
+          />
+          <IconEdit
             :style="{
               position: 'absolute',
               right: '30px',
@@ -17,7 +29,7 @@
               top: '10px',
               color: '#3370ff',
             }"
-            @click="() => handleAdd(nodeData)"
+            @click="() => handleEdit(nodeData)"
           />
           <IconDelete
             :style="{
@@ -76,8 +88,7 @@ export default {
 import DialogWrapper from "./components/dialog-wrapper.vue";
 import DrawerWrapper from "./components/drawer-wrapper.vue";
 import { ref, onMounted } from "vue";
-import { IconPlus } from "@arco-design/web-vue/es/icon";
-import { list } from "@/assets/api/dict";
+import { list, remove } from "@/assets/api/dict";
 import {
   dialog,
   drawer,
@@ -85,7 +96,9 @@ import {
   pagination,
   openDialog,
 } from "./common/utils";
+import { Message } from "@arco-design/web-vue";
 
+const searchKey = ref("");
 const treeData = ref([]);
 const filedProps = {
   key: "id",
@@ -99,38 +112,38 @@ const form = ref({
 });
 const columns = ref([
   {
-    title: "字典编号",
+    title: "字典code码",
     dataIndex: "code",
     ellipsis: true,
     tooltip: true,
   },
   {
-    title: "字典年度",
-    dataIndex: "year",
+    title: "字典label值",
+    dataIndex: "label",
     ellipsis: true,
     tooltip: true,
   },
   {
-    title: "字典金额",
-    dataIndex: "quota",
+    title: "所属空间",
+    dataIndex: "namespace",
     ellipsis: true,
     tooltip: true,
   },
   {
-    title: "描述",
-    dataIndex: "comment",
+    title: "字典层级",
+    dataIndex: "level",
     ellipsis: true,
     tooltip: true,
   },
   {
-    title: "发行日期",
-    dataIndex: "createTime",
+    title: "字典排序",
+    dataIndex: "sort",
     ellipsis: true,
     tooltip: true,
   },
   {
-    title: "最近操作人",
-    dataIndex: "modifiedUserName",
+    title: "修改日期",
+    dataIndex: "updated_at",
     ellipsis: true,
     tooltip: true,
   },
@@ -157,15 +170,45 @@ const onReset = () => {
   getData();
 };
 
+const handleSelect = (keys, { node }) => {
+  data.value = node.children.map((obj) => {
+    return {
+      ...obj,
+      children: undefined,
+    };
+  });
+};
+
 const handleAdd = (node) => {
   openDialog({
     title: "新增字典",
     type: "budget-config-edit",
-    data: {},
+    data: {
+      pid: node.id || null,
+    },
   });
 };
 
-const handleDelete = (node) => {};
+const handleEdit = (node) => {
+  openDialog({
+    title: "修改字典",
+    type: "budget-config-edit",
+    data: {
+      ...node,
+    },
+  });
+};
+
+const handleDelete = async (node) => {
+  const res = await remove(node.id);
+  if (res.code == 200) {
+    Message.success("操作成功!");
+    getData();
+  } else {
+    Message.error(res.msg);
+    return res;
+  }
+};
 
 const pageChange = (val) => {
   pagination.current = val;
@@ -232,11 +275,11 @@ onMounted(() => {
     margin-right: 16px;
     border: 1px solid var(--color-neutral-3);
     border-radius: var(--border-radius-medium) var(--border-radius-medium) 0 0;
+    background-color: #f2f3f5;
   }
   .table-con {
     display: inline-block;
     width: calc(100% - 300px);
-    padding: 2px;
   }
 }
 .budget {

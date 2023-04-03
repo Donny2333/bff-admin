@@ -4,33 +4,33 @@
     <div class="box-content">
       <a-form :model="form" auto-label-width label-align="left">
         <a-row>
-          <a-form-item field="code" label="预算编号">
+          <a-form-item field="code" label="字典code码">
             <span class="content">{{ form.code }}</span>
           </a-form-item>
         </a-row>
         <a-row>
-          <a-form-item field="year" label="预算年度">
-            <span class="content">{{ form.year }}</span>
+          <a-form-item field="year" label="字典label值">
+            <span class="content">{{ form.label }}</span>
           </a-form-item>
         </a-row>
         <a-row>
-          <a-form-item field="quota" label="预算金额">
-            <span class="content">{{ form.quota }}</span>
+          <a-form-item field="quota" label="所属空间">
+            <span class="content">{{ form.namespace ?? '--' }}</span>
           </a-form-item>
         </a-row>
         <a-row>
-          <a-form-item field="comment" label="描述">
-            <span class="content">{{ form.comment }}</span>
+          <a-form-item field="comment" label="字典层级">
+            <span class="content">{{ form.level }}</span>
           </a-form-item>
         </a-row>
         <a-row>
-          <a-form-item field="createTime" label="发行日期">
-            <span class="content">{{ form.createTime }}</span>
+          <a-form-item field="comment" label="字典排序">
+            <span class="content">{{ form.sort }}</span>
           </a-form-item>
         </a-row>
         <a-row>
-          <a-form-item field="modifiedUserName" label="操作人">
-            <span class="content">{{ form.modifiedUserName }}</span>
+          <a-form-item field="modifiedUserName" label="修改日期">
+            <span class="content">{{ form.updated_at }}</span>
           </a-form-item>
         </a-row>
       </a-form>

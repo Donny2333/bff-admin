@@ -24,12 +24,19 @@
         </a-form-item>
       </a-col>
     </a-row>
+    <a-row :gutter="24">
+      <a-col :span="24">
+        <a-form-item field="code" label="字典pid码" allow-clear>
+          <a-input v-model="form.pid" placeholder="请输入" disabled />
+        </a-form-item>
+      </a-col>
+    </a-row>
   </a-form>
 </template>
 
 <script setup>
 import { defineProps, defineExpose, ref, watch } from "vue";
-import { add } from "@/assets/api/dict";
+import { add, update } from "@/assets/api/dict";
 import { Message } from "@arco-design/web-vue";
 
 const props = defineProps({
@@ -53,12 +60,11 @@ watch(
   () => props.data,
   (val) => {
     if (val) {
-      form.value = {
-        pid: val.pid ?? "",
-        code: val.code ?? "",
-        label: val.label ?? "",
-      };
+      form.value = val;
     }
+  },
+  {
+    immediate: true,
   }
 );
 
@@ -73,12 +79,22 @@ const validate = async () => {
       code: form.value.code,
       label: form.value.label,
     };
-    const res = await add(payload);
-    if (res.code == 200) {
-      Message.success("操作成功!");
+    if (form.value.id) {
+      const res = await update(payload, form.value.id);
+      if (res.code == 200) {
+        Message.success("操作成功!");
+      } else {
+        Message.error(res.msg);
+        return res;
+      }
     } else {
-      Message.error(res.msg);
-      return res;
+      const res = await add(payload);
+      if (res.code == 200) {
+        Message.success("操作成功!");
+      } else {
+        Message.error(res.msg);
+        return res;
+      }
     }
   }
   return err;
