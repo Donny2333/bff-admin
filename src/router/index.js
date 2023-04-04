@@ -10,6 +10,11 @@ const routes = [
         component: () => import("../views/dict/index.vue"),
         meta: { highlight: "/dict" },
       },
+      {
+        path: "/ns",
+        component: () => import("../views/ns/index.vue"),
+        meta: { highlight: "/ns" },
+      },
     ],
   },
   {

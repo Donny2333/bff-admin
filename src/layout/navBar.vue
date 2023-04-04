@@ -120,6 +120,11 @@ const routeList = [
     name: "字典管理",
     path: "/dict",
   },
+  {
+    id: 1,
+    name: "空间管理",
+    path: "/ns",
+  },
 ];
 
 const go = (path) => {
