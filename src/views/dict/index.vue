@@ -108,20 +108,23 @@ const filedProps = {
   children: "children",
 };
 
-const form = ref({
-  code: "",
-  year: "",
-});
+const form = ref({});
 const columns = ref([
   {
-    title: "字典code码",
+    title: "字典code",
     dataIndex: "code",
     ellipsis: true,
     tooltip: true,
   },
   {
-    title: "字典label值",
+    title: "字典label",
     dataIndex: "label",
+    ellipsis: true,
+    tooltip: true,
+  },
+  {
+    title: "字典value",
+    dataIndex: "value",
     ellipsis: true,
     tooltip: true,
   },
@@ -259,10 +262,7 @@ const onDialogSubmit = () => {
 };
 
 const getData = async () => {
-  const payload = {
-    code: form.value.code,
-    year: form.value.year,
-  };
+  const payload = {};
   loading.value = true;
   const res = await list(payload, pagination.current, pagination.pageSize);
 

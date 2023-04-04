@@ -26,6 +26,18 @@
     </a-row>
     <a-row :gutter="24">
       <a-col :span="24">
+        <a-form-item
+          field="label"
+          label="字典value值"
+          :rules="[{ required: true, message: 'value值不能为空' }]"
+          allow-clear
+        >
+          <a-input v-model="form.value" placeholder="请输入" />
+        </a-form-item>
+      </a-col>
+    </a-row>
+    <a-row :gutter="24">
+      <a-col :span="24">
         <a-form-item field="code" label="字典pid码" allow-clear>
           <a-input v-model="form.pid" placeholder="请输入" disabled />
         </a-form-item>
@@ -54,6 +66,7 @@ const form = ref({
   pid: "",
   code: "",
   label: "",
+  value: "",
 });
 
 watch(
@@ -78,6 +91,7 @@ const validate = async () => {
       pid: form.value.pid,
       code: form.value.code,
       label: form.value.label,
+      value: form.value.value,
     };
     if (form.value.id) {
       const res = await update(payload, form.value.id);

@@ -4,13 +4,18 @@
     <div class="box-content">
       <a-form :model="form" auto-label-width label-align="left">
         <a-row>
-          <a-form-item field="code" label="字典code码">
+          <a-form-item field="code" label="字典code">
             <span class="content">{{ form.code }}</span>
           </a-form-item>
         </a-row>
         <a-row>
-          <a-form-item field="year" label="字典label值">
+          <a-form-item field="year" label="字典label">
             <span class="content">{{ form.label }}</span>
+          </a-form-item>
+        </a-row>
+        <a-row>
+          <a-form-item field="year" label="字典value">
+            <span class="content">{{ form.value }}</span>
           </a-form-item>
         </a-row>
         <a-row>
