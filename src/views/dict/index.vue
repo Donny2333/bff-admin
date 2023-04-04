@@ -1,63 +1,65 @@
 <template>
   <div class="main-content">
-    <div class="tree-wrapper">
-      <a-input-search style="margin-bottom: 8px" v-model="searchKey" />
-      <a-tree
-        v-if="!loading"
-        :blockNode="true"
-        :data="treeData"
-        :field-names="filedProps"
-        showLine
-        @select="handleSelect"
-      >
-        <template #extra="nodeData">
-          <IconPlusCircle
-            :style="{
-              position: 'absolute',
-              right: '52px',
-              fontSize: '12px',
-              top: '10px',
-              color: '#3370ff',
-            }"
-            @click="() => handleAdd(nodeData)"
-          />
-          <IconEdit
-            :style="{
-              position: 'absolute',
-              right: '30px',
-              fontSize: '12px',
-              top: '10px',
-              color: '#3370ff',
-            }"
-            @click="() => handleEdit(nodeData)"
-          />
-          <IconDelete
-            :style="{
-              position: 'absolute',
-              right: '8px',
-              fontSize: '12px',
-              top: '10px',
-              color: '#3370ff',
-            }"
-            @click="() => handleDelete(nodeData)"
-          />
-        </template>
-      </a-tree>
-    </div>
-    <div class="table-con">
-      <a-table
-        :columns="columns"
-        :pagination="pagination"
-        :loading="loading"
-        @page-change="pageChange"
-        @page-size-change="pageSizeChange"
-        :data="data"
-        :scroll="{ y: 600 }"
-      >
-        <template #optional="{ record }">
-          <a-button type="text" @click="onPreview(record)">查看</a-button>
-        </template>
-      </a-table>
+    <div class="page-wrapper">
+      <div class="tree-wrapper">
+        <a-input-search style="margin-bottom: 8px" v-model="searchKey" />
+        <a-tree
+          v-if="!loading"
+          :blockNode="true"
+          :data="treeData"
+          :field-names="filedProps"
+          showLine
+          @select="handleSelect"
+        >
+          <template #extra="nodeData">
+            <IconPlusCircle
+              :style="{
+                position: 'absolute',
+                right: '52px',
+                fontSize: '12px',
+                top: '10px',
+                color: '#3370ff',
+              }"
+              @click="() => handleAdd(nodeData)"
+            />
+            <IconEdit
+              :style="{
+                position: 'absolute',
+                right: '30px',
+                fontSize: '12px',
+                top: '10px',
+                color: '#3370ff',
+              }"
+              @click="() => handleEdit(nodeData)"
+            />
+            <IconDelete
+              :style="{
+                position: 'absolute',
+                right: '8px',
+                fontSize: '12px',
+                top: '10px',
+                color: '#3370ff',
+              }"
+              @click="() => handleDelete(nodeData)"
+            />
+          </template>
+        </a-tree>
+      </div>
+      <div class="table-con">
+        <a-table
+          :columns="columns"
+          :pagination="pagination"
+          :loading="loading"
+          @page-change="pageChange"
+          @page-size-change="pageSizeChange"
+          :data="data"
+          :scroll="{ y: 600 }"
+        >
+          <template #optional="{ record }">
+            <a-button type="text" @click="onPreview(record)">查看</a-button>
+          </template>
+        </a-table>
+      </div>
     </div>
   </div>
   <DialogWrapper
@@ -293,9 +295,16 @@ onMounted(async () => {
 <style lang="less" scoped>
 .main-content {
   box-sizing: border-box;
-  display: flex;
   height: 100%;
   padding: 20px;
+  .page-wrapper {
+    box-sizing: border-box;
+    padding: 20px;
+    display: flex;
+    height: 100%;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
   .tree-wrapper {
     display: inline-block;
     width: 300px;
