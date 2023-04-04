@@ -1,13 +1,9 @@
 <template>
   <div class="main-content">
-    <div class="page-wrapper">
+    <div class="main-wrapper">
       <div class="tree-wrapper">
         <div class="search-wrapper">
-          <a-input-search
-            style="margin-bottom: 8px"
-            v-model="searchKey"
-            placeholder="请输入"
-          />
+          <a-input-search v-model="searchKey" placeholder="请输入" />
         </div>
         <div class="tree">
           <a-tree
@@ -56,7 +52,7 @@
       <div class="table-con">
         <a-table
           :columns="columns"
-          :pagination="pagination"
+          :pagination="false"
           :loading="loading"
           @page-change="pageChange"
           @page-size-change="pageSizeChange"
@@ -310,7 +306,7 @@ onMounted(async () => {
   box-sizing: border-box;
   height: 100%;
   padding: 20px;
-  .page-wrapper {
+  .main-wrapper {
     box-sizing: border-box;
     display: flex;
     height: 100%;
@@ -326,20 +322,26 @@ onMounted(async () => {
     border-radius: var(--border-radius-medium) var(--border-radius-medium) 0 0;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
     .search-wrapper {
-      background-color: #f2f3f5;
-      padding: 16px 16px 10px;
+      height: 62px;
+      min-height: 62px;
       border-bottom: 1px solid var(--color-neutral-3);
+      border-radius: var(--border-radius-medium) var(--border-radius-medium) 0 0;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .tree {
+      flex: 1;
       overflow: auto;
-      padding: 8px 12px 12px;
+      padding: 8px 0px 12px 12px;
     }
   }
   .table-con {
     display: inline-block;
     flex: 1;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    padding: 16px;
   }
 }
 .budget {
