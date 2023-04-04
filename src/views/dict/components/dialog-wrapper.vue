@@ -61,6 +61,9 @@ watch(
     if (type) {
       layout.value = registryComponents(type);
     }
+  },
+  {
+    immediate: true,
   }
 );
 
