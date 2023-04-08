@@ -8,6 +8,7 @@
         <div class="tree">
           <a-tree
             v-if="!loading"
+            ref="treeRef"
             :blockNode="true"
             :data="treeData"
             :field-names="filedProps"
@@ -171,6 +172,9 @@ const columns = ref([
 ]);
 const data = ref([]);
 
+const treeRef = ref();
+const treeSelectKeys = ref([]);
+
 const onSearch = () => {
   getData();
 };
@@ -186,6 +190,7 @@ const onReset = () => {
 };
 
 const handleSelect = (keys, { node }) => {
+  treeSelectKeys.value = keys;
   if (node?.children.length) {
     data.value =
       node?.children.map((obj) => {
@@ -202,7 +207,6 @@ const handleSelect = (keys, { node }) => {
       },
     ];
   } else {
-    console.log(node);
     data.value = treeData.value[0].children.map((obj) => {
       return {
         ...obj,
@@ -260,9 +264,16 @@ const onPreview = (record) => {
   drawer.visible = true;
 };
 
-const onDialogSubmit = () => {
+const onDialogSubmit = async () => {
   dialog.visible = false;
-  getData();
+  await getData();
+  if (treeSelectKeys.value.length) {
+    treeRef.value.selectNode(treeSelectKeys.value);
+    const nodes = treeRef.value.getSelectedNodes();
+    handleSelect(treeSelectKeys.value, {
+      node: nodes[0],
+    });
+  }
 };
 
 const getData = async () => {
@@ -289,7 +300,6 @@ const getData = async () => {
 onMounted(async () => {
   pagination.current = 1;
   const res = await getData();
-  console.log(res);
   if (res.code == 200) {
     data.value = res.data.map((obj) => {
       return {
