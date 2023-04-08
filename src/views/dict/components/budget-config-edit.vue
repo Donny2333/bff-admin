@@ -1,7 +1,7 @@
 <template>
   <a-form ref="formRef" :model="form" layout="vertical" auto-label-width>
     <a-row :gutter="24">
-      <a-col :span="24">
+      <a-col :span="12">
         <a-form-item
           field="code"
           label="字典code码"
@@ -11,9 +11,14 @@
           <a-input v-model="form.code" placeholder="请输入" />
         </a-form-item>
       </a-col>
+      <a-col :span="12">
+        <a-form-item field="code" label="字典pid码" allow-clear>
+          <a-input v-model="form.pid" placeholder="请输入" disabled />
+        </a-form-item>
+      </a-col>
     </a-row>
     <a-row :gutter="24">
-      <a-col :span="24">
+      <a-col :span="12">
         <a-form-item
           field="label"
           label="字典label值"
@@ -23,9 +28,7 @@
           <a-input v-model="form.label" placeholder="请输入" />
         </a-form-item>
       </a-col>
-    </a-row>
-    <a-row :gutter="24">
-      <a-col :span="24">
+      <a-col :span="12">
         <a-form-item
           field="label"
           label="字典value值"
@@ -37,9 +40,20 @@
       </a-col>
     </a-row>
     <a-row :gutter="24">
-      <a-col :span="24">
-        <a-form-item field="code" label="字典pid码" allow-clear>
-          <a-input v-model="form.pid" placeholder="请输入" disabled />
+      <a-col :span="12">
+        <a-form-item
+          field="sort"
+          label="字典排序"
+          :rules="[{ required: true, message: 'sort值不能为空' }]"
+          allow-clear
+        >
+          <a-input-number
+            v-model="form.sort"
+            :step="1"
+            :min="0"
+            :max="100"
+            placeholder="请输入"
+          />
         </a-form-item>
       </a-col>
     </a-row>
@@ -67,6 +81,7 @@ const form = ref({
   code: "",
   label: "",
   value: "",
+  sort: "",
 });
 
 watch(
@@ -92,6 +107,7 @@ const validate = async () => {
       code: form.value.code,
       label: form.value.label,
       value: form.value.value,
+      sort: form.value.sort,
     };
     if (form.value.id) {
       const res = await update(payload, form.value.id);
